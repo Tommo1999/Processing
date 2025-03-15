@@ -1,0 +1,97 @@
+int number;
+int dotSize;
+int total = 0;
+int numberOfRolls = 0;
+int red;
+int blue;
+int green;
+
+void setup() {
+ 
+  size(600, 600);
+  total = 0;
+  numberOfRolls = 0;
+  red = int(random(255));
+  blue = int(random(255));
+  green = int(random(255));
+  rectMode(CENTER);
+  dotSize = 20;
+  textAlign(CENTER);
+  fill(255);
+  rect(width/2, height/2, 200, 200);
+}
+void draw() {
+  background(red,blue,green);
+  fill(255);
+
+  textSize(24);
+  text(total, 280, 50);
+
+  textSize(24);
+  text("number of rolls: "+numberOfRolls, width/2, 80);
+  text("score:", 230, 50);
+  text("Press spacebar to reset everything",300,500);
+
+  fill(255);
+  rect(width/2, height/2, 200, 200);
+  if (number==1) {
+    fill(0);
+    ellipse(width/2, height/2, dotSize, dotSize);
+  }
+
+  if (number==2) {
+    fill(0);
+    ellipse(350, 250, dotSize, dotSize);
+    ellipse(250, 350, dotSize, dotSize);
+  }
+
+
+  if (number==3) {
+    fill(0);
+    ellipse(350, 250, dotSize, dotSize);
+    ellipse(width/2, height/2, dotSize, dotSize);
+    ellipse(250, 350, dotSize, dotSize);
+  }
+  if (number==4) {
+    fill(0);
+    ellipse(350, 250, dotSize, dotSize);
+    ellipse(250, 350, dotSize, dotSize);
+    ellipse(250, 250, dotSize, dotSize);
+    ellipse(350, 350, dotSize, dotSize);
+  }
+  if (number==5) {
+    fill(0);
+    ellipse(350, 250, dotSize, dotSize);
+    ellipse(250, 350, dotSize, dotSize);
+    ellipse(250, 250, dotSize, dotSize);
+    ellipse(350, 350, dotSize, dotSize);
+    ellipse(width/2, height/2, dotSize, dotSize);
+  }
+  if (number==6) {
+    fill(0);
+    ellipse(350, 225, dotSize, dotSize);
+    ellipse(250, 375, dotSize, dotSize);
+    ellipse(250, 225, dotSize, dotSize);
+    ellipse(350, 375, dotSize, dotSize);
+    ellipse(350, height/2, dotSize, dotSize);
+    ellipse(250, height/2, dotSize, dotSize);
+  }
+}
+void mouseClicked() {
+  number=int(random(1, 7));
+  numberOfRolls++;
+  number=int(random(1, 7));
+  println(number);
+  total = total +number;
+}
+
+
+
+
+
+
+void keyPressed(){
+ setup(); 
+ number = 100;
+  
+}
