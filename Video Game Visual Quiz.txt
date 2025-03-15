@@ -1,0 +1,178 @@
+import processing.sound.*;
+SoundFile file;
+
+PImage [ ] images = new PImage [9];//make an array for the 9 images
+String [ ] questions = new String[9];//make an array for the 9 questions
+int usersAnswer=-1;//a number to point to the questions. Set to -1 initially, so answer will be wrong at start
+int randomQuestionNumber;
+
+
+
+void setup() {
+  background(0);
+  size(870, 950);//each image is 293 pixels, so double that is needed for width and height (for 4 images)
+  textSize(24);
+  file = new SoundFile(this, "Mario.mp3");
+  file.play();
+  
+
+
+  // load images into array
+  images[0] = loadImage("Mario5cm.jpg");//top left
+  images[1] = loadImage("Link5cm.jpg");//top middle
+  images[2] = loadImage("Sonic5cm.jpg");//top right
+  images[3] = loadImage("Cloud5cm.jpg");//middle left
+  images[4] = loadImage("DonkeyKong5cm.jpg");//middle middle
+  images[5] = loadImage("Centipede5cm.jpg");//middle right
+  images[6] = loadImage("MarioKart5cm.jpg");//bottom left
+  images[7] = loadImage("Fortnite5cm.jpg");//bottom middle
+  images[8] = loadImage("StarWars5cm.jpg");//bottom right
+
+  //load questions into another array (to match images above)
+  questions[0] = "which is Super Mario Bros?";
+  questions[1] = "which is Zelda?";
+  questions[2] = "which is Sonic?";
+  questions[3] = "which is Cloud?";
+  questions[4] = "which is Donkey Kong?";
+  questions[5] = "which is Centipede?";
+  questions[6] = "which is Mario Kart?";
+  questions[7] = "which is Fortnite?";
+  questions[8] = "which is Star Wars?";
+
+
+
+  randomQuestionNumber=int(random(0, 9));//this will used to generate a random (array) pointer to a question 
+  //println(randomQuestionNumber);//use this for testing
+
+
+
+
+  loadImages();//now load the images (see function below)
+}
+
+
+void draw() {
+
+  fill(0);
+  rect(0, 879, 300, 70);
+
+  fill(255); 
+  text(questions[randomQuestionNumber], 10, 925);//put the question top left right for now
+}
+
+
+
+
+void mouseClicked() {
+  if (mouseX<=290 && mouseY<=290) { //if you click top left
+    usersAnswer=0;
+  }
+
+
+
+
+  if (mouseX>290 && mouseX<=580 && mouseY<=290) { //if you click top Middle
+    usersAnswer=1;
+  }
+
+
+
+
+  if (mouseX>580 && mouseX<=870 && mouseY<=290) { //if you click top right
+    usersAnswer=2;
+  }
+
+
+
+
+  if (mouseX<290 && mouseY>290 && mouseY<=580) { //if you click middle left
+    usersAnswer=3;
+  }
+
+
+
+  if (mouseX>=290 && mouseX<580 && mouseY>=290 && mouseY<580) { //if you click middle middle
+    usersAnswer=4;
+  }
+
+
+
+  if (mouseX>=580 && mouseX<870 && mouseY>=290 && mouseY<580 ) { //if you click middle right
+    usersAnswer=5;
+  }
+
+
+
+  if (mouseX<290 && mouseY>580 && mouseY<=870) { //if you click bottom left
+    usersAnswer=6;
+  }
+
+
+
+  if (mouseX>=290 && mouseX<580 && mouseY>=580 && mouseY<870) { //if you click bottom middle
+    usersAnswer=7;
+  }
+
+
+
+  if (mouseX>=580 && mouseX<870 && mouseY>=580 && mouseY<870) { //if you click bottom right
+    usersAnswer=8;
+  }
+  //pass the userAnswer value to the 'checkit' function (below) and print out whatever that function returns
+  pushStyle();
+
+  text(checkit(usersAnswer), 330, 925);//print just below question (top left for now)
+  popStyle();
+}
+
+
+
+//takes in the usersAnswer and compares against the random question number 
+//if both are equal, return a well done message (to line 104)
+//if not, return a try again message (to line 104)
+String checkit(int usersAnswer) {
+
+
+
+  if (usersAnswer == randomQuestionNumber) {
+    loadImages();//re-load the images to cover up previous question
+    fill(0);
+    rect(100, 879, 770, 70);
+    fill(255, 255, 0);//yellow text if correct
+    return ("Well Done - Press space for another question");
+  } else {
+    loadImages();//re-load the images to cover up previous question
+    fill(255, 0, 0);//red text if wrong
+    return ("Try again");
+  }
+}
+
+
+
+void keyPressed () {
+  fill(0);
+  rect(100, 879, 770, 70);
+  image(images[0], 0, 0);//re-draw top left  (to overwrite previous question)
+  image(images[1], 293, 0);//re-draw middle left  (to overwrite previous question)
+  randomQuestionNumber=int(random(0, 9));//get a different question pointer
+}
+
+
+
+void loadImages() {
+  image(images[0], 0, 0);//top left
+  image(images[1], 293, 0);//top middle
+  image(images[2], 586, 0);//top right
+
+
+
+  image(images[3], 0, 293);//middle left
+  image(images[4], 293, 296);//middle, middle
+  image(images[5], 586, 296);//middle right
+
+
+
+  image(images[6], 0, 586);//bottom left
+  image(images[7], 293, 590);//middle left
+  image(images[8], 586, 586);//bottom right
+}
